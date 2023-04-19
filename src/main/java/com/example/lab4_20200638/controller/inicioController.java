@@ -57,6 +57,7 @@ public class inicioController {
             }
         }
         if (a==1){
+
             return "homePage";
         }else {
             return "redirect:/";
