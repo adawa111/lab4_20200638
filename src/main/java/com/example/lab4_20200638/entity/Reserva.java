@@ -25,6 +25,6 @@ public class Reserva {
     private User user;
 
     @ManyToOne
-    @Column(name = "vuelo_idvuelo",nullable = false)
+    @JoinColumn(name = "vuelo_idvuelo",nullable = false)
     private Vuelo vuelo;
 }

@@ -36,7 +36,7 @@ public class Vuelo {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "aerolinea_idaerolinea")
+    @JoinColumn(name = "aerolinea_idaerolinea",nullable = false)
     private Aerolinea aerolinea;
 
 
