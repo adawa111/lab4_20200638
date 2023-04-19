@@ -27,7 +27,7 @@ public class inicioController {
         return "inicio"; // Nombre de la vista predeterminada
     }
 
-    @GetMapping("/login/inicioSesion")
+    @PostMapping("/login/inicioSesion")
     public String iniciarSesion(@RequestParam("correo") String correo,
                                 @RequestParam("contrasena") String contrasena,
                                 Model model) {
