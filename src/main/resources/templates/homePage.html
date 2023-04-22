@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -67,23 +67,19 @@
       <div class="card-body">
         <div class="row">
           <div class="col-2"></div>
-          <div class="col-8"><img class="img-fluid" th:src="@{tokio.jpeg}" alt=""></div>
+          <div class="col-8"><img class="img-fluid" src="../../../../../../Desktop/Puke/2023-1/GTICS/LAB4/Laboratorio%204-20230418/Recursos/tokio.jpeg" alt=""></div>
           <div class="col-2"></div>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-sm-6 mt-2 ml-2 mb-4 th:each="vuelo : ${vuelos}">
+      <div class="col-sm-6 mt-2 ml-2 mb-4">
         <div class="card text-center border-white">
           <div class="card-body">
             <h5 class="card-title mt-3">Lima - Bogota <span class="text-danger"><b>($120.00)</b></span></h5>
             <p class="text-success"><b>Star Peru - 2I</b> </p>
-            <p>Definitivamente el turismo en Bogotá en más que Monserrate y la Candelaria, hay muchas excursiones por
-              senderos
-              mágicos que puedes realizar. Estas actividades también se conocen como: senderismo, excursionismo,
-              caminata, montañismo,
-              hiking o trekking.</p>
+            <p th:text="${}"></p>
             <button class="btn btn-success btn-lg btn-block">Comprar</button>
           </div>
         </div>

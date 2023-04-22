@@ -2,7 +2,9 @@ package com.example.lab4_20200638.controller;
 
 
 import com.example.lab4_20200638.entity.User;
+import com.example.lab4_20200638.entity.Vuelo;
 import com.example.lab4_20200638.repository.UserRepository;
+import com.example.lab4_20200638.repository.VueloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class inicioController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    VueloRepository vueloRepository;
 
     @GetMapping("/**")
     public String handleDefault() {
@@ -57,7 +62,8 @@ public class inicioController {
             }
         }
         if (a==1){
-
+            List<Vuelo> listaVuelos = vueloRepository.findAll();
+            model.addAttribute("listaVuelos",listaVuelos);
             return "homePage";
         }else {
             return "redirect:/";
