@@ -90,7 +90,7 @@
             </form>
 
             <!-- Agregar el código para el modal -->
-            <div class="modal fade" id="modalReserva" tabindex="-1" role="dialog" aria-labelledby="modalReservaLabel" aria-hidden="true" th:if="${alert != null}">
+            <div class="modal fade" id="modalReserva" tabindex="-1" role="dialog" aria-labelledby="modalReservaLabel" aria-hidden="true" th:if="${alert != null}" >
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -120,6 +120,14 @@
   <script>
     $(document).ready(function() {
       $('#modalReserva').modal('show');
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#modalReserva').on('hidden.bs.modal', function() {
+        /* Remueve el parámetro 'alert' de la URL para que el modal no aparezca nuevamente */
+        window.history.replaceState(null, null, window.location.pathname);
+      });
     });
   </script>
 
