@@ -39,5 +39,83 @@ public class Vuelo {
     @JoinColumn(name = "aerolinea_idaerolinea",nullable = false)
     private Aerolinea aerolinea;
 
+    public int getIdvuelo() {
+        return idvuelo;
+    }
 
+    public void setIdvuelo(int idvuelo) {
+        this.idvuelo = idvuelo;
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public String getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public String getFecheLlegada() {
+        return fecheLlegada;
+    }
+
+    public void setFecheLlegada(String fecheLlegada) {
+        this.fecheLlegada = fecheLlegada;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public String getAsientosDisponibles() {
+        return asientosDisponibles;
+    }
+
+    public void setAsientosDisponibles(String asientosDisponibles) {
+        this.asientosDisponibles = asientosDisponibles;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Aerolinea getAerolinea() {
+        return aerolinea;
+    }
+
+    public void setAerolinea(Aerolinea aerolinea) {
+        this.aerolinea = aerolinea;
+    }
 }

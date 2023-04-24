@@ -27,4 +27,54 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "vuelo_idvuelo",nullable = false)
     private Vuelo vuelo;
+
+    public int getIdreserva() {
+        return idreserva;
+    }
+
+    public void setIdreserva(int idreserva) {
+        this.idreserva = idreserva;
+    }
+
+    public String getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(String fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public float getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(float precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public String getEstadoPago() {
+        return estadoPago;
+    }
+
+    public void setEstadoPago(String estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Vuelo getVuelo() {
+        return vuelo;
+    }
+
+    public void setVuelo(Vuelo vuelo) {
+        this.vuelo = vuelo;
+    }
 }
+
+

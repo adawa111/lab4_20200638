@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -11,6 +11,9 @@
     crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
   <title>Venta de Viajes</title>
 </head>
 
@@ -67,26 +70,59 @@
       <div class="card-body">
         <div class="row">
           <div class="col-2"></div>
-          <div class="col-8"><img class="img-fluid" src="../../../../../../Desktop/Puke/2023-1/GTICS/LAB4/Laboratorio%204-20230418/Recursos/tokio.jpeg" alt=""></div>
+          <div class="col-8"><img th:src="@{'/tokio.jpeg'}" alt=""></div>
           <div class="col-2"></div>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-sm-6 mt-2 ml-2 mb-4">
+      <div class="col-sm-6 mt-2 ml-2 mb-4" th:each="vuelo : ${listaVuelos}">
         <div class="card text-center border-white">
           <div class="card-body">
-            <h5 class="card-title mt-3">Lima - Bogota <span class="text-danger"><b>($120.00)</b></span></h5>
-            <p class="text-success"><b>Star Peru - 2I</b> </p>
-            <p th:text="${}"></p>
-            <button class="btn btn-success btn-lg btn-block">Comprar</button>
+            <h5 class="card-title mt-3"><span th:text="${vuelo.origen}"></span> -  <span th:text="${vuelo.destino}"></span><span class="text-danger">  <b>$</b><b th:text="${vuelo.precio}">No Precio</b></span></h5>
+            <p class="text-success"><b><span th:text="${vuelo.aerolinea.nombre}"></span> -  <span th:text="${vuelo.aerolinea.codigo}"></span></b> </p>
+            <p th:text="${vuelo.descripcion}"></p>
+            <form th:action="@{/confirmarReserva}" method="POST">
+              <input type="hidden" name="idVuelo" th:value="${vuelo.idvuelo}" />
+              <input type="hidden" name="idUser" th:value="${iduser}" />
+              <button type="submit" class="btn btn-success btn-lg btn-block">Comprar</button>
+            </form>
+
+            <!-- Agregar el código para el modal -->
+            <div class="modal fade" id="modalReserva" tabindex="-1" role="dialog" aria-labelledby="modalReservaLabel" aria-hidden="true" th:if="${alert != null}">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalReservaLabel">Felicidades</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <span style="color: green">Se realizó con éxito su reserva.</span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Entiendo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
           </div>
         </div>
       </div>
     </div>
 
   </div>
+  <script>
+    $(document).ready(function() {
+      $('#modalReserva').modal('show');
+    });
+  </script>
+
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
