@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Videollamada de Twilio</title>
+  <script src="https://media.twiliocdn.com/sdk/js/video/releases/2.11.0/twilio-video.min.js"></script>
+</head>
+<body>
+
+  <h1>Videollamada de Twilio</h1>
+
+  <div id="video-container"></div>
+
+  <script th:inline="javascript">
+    const roomName = /*[[${roomName}]]*/ '';
+    const accessToken = /*[[${accessToken}]]*/ '';
+
+    Twilio.Video.connect(accessToken, {
+      roomName: roomName,
+      video: { width: 640 }
+    }).then(room => {
+      room.localParticipant.tracks.forEach(track => {
+        document.getElementById('video-container').appendChild(track.attach());
+      });
+
+      room.on('participantConnected', participant => {
+        participant.tracks.forEach(track => {
+          document.getElementById('video-container').appendChild(track.attach());
+        });
+      });
+
+      room.on('participantDisconnected', participant => {
+        participant.tracks.forEach(track => {
+          const attachedElements = track.detach();
+          attachedElements.forEach(element => element.remove());
+        });
+      });
+    });
+</script>
+</body>
+</html>

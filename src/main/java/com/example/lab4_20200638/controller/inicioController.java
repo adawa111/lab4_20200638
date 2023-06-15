@@ -1,4 +1,6 @@
 package com.example.lab4_20200638.controller;
+import com.twilio.jwt.accesstoken.AccessToken;
+import com.twilio.jwt.accesstoken.VideoGrant;
 
 
 import com.example.lab4_20200638.entity.Reserva;
@@ -7,6 +9,9 @@ import com.example.lab4_20200638.entity.Vuelo;
 import com.example.lab4_20200638.repository.ReservaRepository;
 import com.example.lab4_20200638.repository.UserRepository;
 import com.example.lab4_20200638.repository.VueloRepository;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("")
@@ -66,6 +69,41 @@ public class inicioController {
         return "homePage";
     }
 
+    @GetMapping("/videollamada")
+    public String videoCall(Model model) {
+        // Lógica para obtener los datos necesarios (por ejemplo, participantes, ID de la sala) y pasarlos al modelo
+
+        // Pasa los datos necesarios al modelo
+        model.addAttribute("roomName", "room123");
+        model.addAttribute("accessToken", generateAccessToken("room123"));
+
+        // Retorna la plantilla Thymeleaf que renderizará la página de videollamada
+        return "video";
+    }
+
+    private String generateAccessToken(String roomName) {
+        String accountSid = "AC96db5fc6a2f8801627e8b0c896f12cbc";
+        String apiKey = "SKf5c61962530c91fff1872f1693377e85";
+        String apiSecret = "VgxmTGy2DGrnbiDSi0ExJ7GJ4MmAFTdA";
+
+        // Define el tiempo de expiración del token (1 hora en este ejemplo)
+        Date expirationDate = new Date(System.currentTimeMillis() + 3600000);
+
+        // Crea un mapa para los claims (datos adicionales) del token
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("room", roomName);
+
+        // Crea el token JWT
+        JwtBuilder jwtBuilder = Jwts.builder()
+                .setIssuer(apiKey)
+                .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
+                .addClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, apiSecret.getBytes());
+
+        // Devuelve el token en forma de cadena
+        return jwtBuilder.compact();
+    }
 
     @PostMapping("/login/inicioSesion")
     public String iniciarSesion(@RequestParam("correo") String correo,
